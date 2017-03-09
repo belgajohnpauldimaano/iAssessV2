@@ -1,0 +1,31 @@
+configure virtual host for laravel
+
+sudo cp /etc/apache2/sites-available/000-default.conf 
+/etc/apache2/sites-available/monkeys.conf
+
+sudo gedit /etc/apache2/sites-available/monkeys.conf
+
+<VirtualHost *:80>
+
+        ServerName local.monkeys.com
+        ServerAdmin admin@monkeys.com
+        DocumentRoot /var/www/html/monkeys/public
+
+        <Directory />
+                Options FollowSymLinks
+                AllowOverride None
+        </Directory>
+        <Directory "/var/www/html/monkeys">
+                AllowOverride All
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+sudo a2ensite monkey.conf
+
+udo a2enmod rewrite
+
+sudo service apache2 restart
